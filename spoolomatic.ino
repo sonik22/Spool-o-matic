@@ -1,8 +1,9 @@
 // SPOOL-O-MATIC
 // setup: defining the wished diameter: 1,75, 2,85, 3,00 .....
+// and calibrating the led luminosity to display diametre
 
 
-// 1st part: measuring luminosity with ler and translate it into understandable values (map-function)
+// 1st part: measuring luminosity with ldr and translate it into understandable values (map-function)
 // creating variable to display value
 
 
