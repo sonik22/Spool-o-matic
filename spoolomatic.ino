@@ -28,15 +28,13 @@
 // 3rd part: turning the trolley motor in accordance to wished diameter
 //We change the switch state to "start" to begin the counter, the spooling and the trolley-movement
 //
-// Spool-Routine:
-// M8 has a pitch of 1.25mm. For a diametre of 2.85 and a speedwheel with 8 holes that means
-// 2.85 / 1.25 = 2.28 / 8 = 0;285 so every time a hole is detected, turn the axe 0.285 turns.
-// which means 0,285÷0,015625(turns per step)= 18.24, so make 18 steps every time a hole is detected. 
-// 
-// We need a startbutton to start movement of the trolley, once the diameter is established
 
 // MODULE TROLLEY:
 // A stepper motor moves the trolley forth and back between two limit-switches, the speed is controlled by the result of
 // the speed-wheel (wheel with 8 holes on the axis and an optocoupleur) and the variable of the defined diameter.
 // 
-
+// Spool-Routine:
+// M8 has a pitch of 1.25mm. For a diametre of 2.85 and a speedwheel with 8 holes that means
+// 2.85 / 1.25 = 2.28 / 8 = 0;285 so every time a hole is detected, turn the axe 0.285 turns.
+// which means 0,285÷0,015625(turns per step)= 18.24, so make 18 steps every time a hole is detected. 
+// 
