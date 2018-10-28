@@ -5,6 +5,26 @@
 // setup: defining the wished diameter: 1,75, 2,85, 3,00 .....
 // and calibrating the led luminosity to display diametre (actually the calibration is totally independant of the STM)
 // add Routine parkposition for trolley 
+//
+// SETUP DISPLAY:
+#include <TFT.h>  // Arduino LCD library
+#include <SPI.h>
+
+
+// pin definition for the STM32 
+#define cs   PB11
+#define dc   PB1
+#define rst  PB10
+TFT TFTscreen = TFT(cs, dc, rst);
+//
+
+void setup() {
+  // put your setup code here, to run once:
+Serial.begin(9600);
+  TFTscreen.begin();
+  TFTscreen.setRotation(3);
+  TFTscreen.background(0, 0, 0);
+  
 
 // MODULE DIAMETER:
 // Use encoder to dial in the wished diameter and put it into a variable,
