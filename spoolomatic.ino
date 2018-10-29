@@ -11,7 +11,7 @@
 #include <SPI.h>
 
 
-// pin definition for the STM32 
+// SPI Pin definition for the STM32 
 #define cs   PB11
 #define dc   PB1
 #define rst  PB10
@@ -29,12 +29,13 @@ Serial.begin(9600);
 // MODULE DIAMETER:
 // Use encoder to dial in the wished diameter and put it into a variable,
 // push to confirm and pass to density, dial in the density of the plastic used and put it into a variable.
+// We need three digital inputs.
 // ----------------------------------------------------------------
+//
 // 1st part: measuring luminosity with ldr and translate it into understandable values (map-function)
 // Actually NO map-function: we will have one value on an analog input (0-1023) and we will use this value
 // to compare with the value hardcoded for each diameter
 // creating variable to display value
-
 
 // 2nd part: reading the diameter value and tune the pull-motor with this value, once the switch is switched from "manual" to "auto"
 // 
@@ -52,6 +53,8 @@ Serial.begin(9600);
 // MODULE TROLLEY:
 // A stepper motor moves the trolley forth and back between two limit-switches, the speed is controlled by the result of
 // the speed-wheel (wheel with 8 holes on the axis and an optocoupleur) and the variable of the defined diameter.
+// We need four digital outs for the motor, one digital in for the optocoupler and two digital ins for the limit-switches
+// and one digital in for the "start counter" routine.
 // 
 // Spool-Routine:
 // M8 has a pitch of 1.25mm. For a diametre of 2.85 and a speedwheel with 8 holes that means
