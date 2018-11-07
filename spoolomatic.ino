@@ -4,7 +4,7 @@
 //
 // setup: defining the wished diameter: 1,75, 2,85, 3,00 .....
 // and calibrating the led luminosity to display diametre (actually the calibration is totally independant of the STM)
-// add Routine parkposition for trolley 
+// add Routine parkposition for trolley NO this will be done manually
 //
 // SETUP DISPLAY:
 #include <TFT.h>  // Arduino LCD library
