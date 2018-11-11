@@ -1,6 +1,6 @@
 // SPOOL-O-MATIC
 //
-// USING A STM32F103
+// USING A Arduino Uno and MotorShield V2
 //
 // setup: defining the wished diameter: 1,75, 2,85, 3,00 .....
 // and calibrating the led luminosity to display diametre (actually the calibration is totally independant of the STM)
