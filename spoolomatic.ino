@@ -43,8 +43,8 @@ int spool = 12;
 
 int slideSpeed;
 float diameterArray[3] = { 1.75, 2.85, 3.00};
-int ldrValueArray[3] = {102, 164, 198};
-int stepsPerHoleArray[3] = {20, 30, 40};
+int ldrValueArray[3] = {102, 164, 198};   // Values need to be established
+int stepsPerHoleArray[3] = {20, 30, 40};    // Values need to be established
 float density = 1;
 int spoolSpeed;
 int slideDirection(FORWARD);
@@ -112,35 +112,14 @@ void setup() {
       
       
 
-// 2nd part: reading the diameter value and tune the pull-motor with this value, once the switch is switched from "manual" to "auto"
-// 
-// MODULE SPEED CONTROL:
-// We use a stepper motor to transport the filament, the speed is controlled by the value of an analog input
-// which is either the readout from the ldr (auto) or the potentiometer of (manual) control. 
-  //*****************************************************************************//
-  // Retreive the LDR Value or Pot-Value on A3
-
-  int pullSpeed = analogRead(aInValue);
-  int refValue = ldrValueArray[diameterIndex];    // reading from defined array
-
-  if (pullSpeed > refValue) {
-    pullSpeed = pullSpeed -1;
-    }
-
- if (pullSpeed < refValue) {
-    pullSpeed = pullSpeed +1;
-    }
-
 
 //
-// 3rd part: turning the trolley motor in accordance to wished diameter
+//2nd part: turning the trolley motor in accordance to wished diameter
 //We change the switch state to "start" to begin the counter, the spooling and the trolley-movement
 //
 // MODULE TROLLEY:
 // A stepper motor moves the trolley forth and back between two limit-switches, the speed is controlled by the result of
 // the speed-wheel (wheel with 8 holes on the axis and an optocoupleur) and the variable of the defined diameter.
-// We need four digital outs for the motor, one digital in for the optocoupler and two digital ins for the limit-switches
-// and one digital in for the "start counter" routine.
 // 
 // Spool-Routine:
 // M8 has a pitch of 1.25mm. For a diametre of 2.85 and a speedwheel with 8 holes that means
@@ -171,3 +150,22 @@ void setup() {
       slideMotor->step(stepsPerHole, slideDirection, SINGLE);
     }
   }
+//3rd part: reading the diameter value and tune the pull-motor with this value, once the switch is switched from "manual" to "auto"
+// 
+// MODULE SPEED CONTROL:
+// We use a stepper motor to transport the filament, the speed is controlled by the value of an analog input
+// which is either the readout from the ldr (auto) or the potentiometer of (manual) control. 
+  //*****************************************************************************//
+  // Retreive the LDR Value or Pot-Value on A3
+
+  int pullSpeed = analogRead(aInValue);
+  int refValue = ldrValueArray[diameterIndex];    // reading from defined array
+
+  if (pullSpeed > refValue) {
+    pullSpeed = pullSpeed -1;
+    }
+
+ if (pullSpeed < refValue) {
+    pullSpeed = pullSpeed +1;
+    }
+
