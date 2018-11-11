@@ -156,11 +156,7 @@ Serial.begin(9600);
 
     previous = reading;
 
-    Serial.print(state);
-    Serial.print("  ");
-    Serial.print(previous);
-    Serial.print("  ");
-    Serial.println(reading);
+
   }
   //-------------------------------------------------------------
 
@@ -192,3 +188,4 @@ Serial.begin(9600);
     pullSpeed = pullSpeed +1;
     }
 
+    } // Void End
