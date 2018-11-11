@@ -49,17 +49,14 @@ float density = 1;
 int spoolSpeed;
 int slideDirection(FORWARD);
 
-
-
+  
 void setup() {
-  // put your setup code here, to run once:
+  //start serial connection
 Serial.begin(9600);
   TFTscreen.begin();
   TFTscreen.setRotation(3);
   TFTscreen.background(0, 0, 0);
-  
-void setup() {
-  //start serial connection
+
   Serial.begin(9600);
 
   // Pin Modes
