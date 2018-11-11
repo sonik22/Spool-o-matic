@@ -40,14 +40,22 @@ int speedWheel = A2;
 int aInValue = A3;
 int spool = 12;
 
-
 int slideSpeed;
-float diameterArray[3] = { 1.75, 2.85, 3.00};
-int ldrValueArray[3] = {102, 164, 198};   // Values need to be established
-int stepsPerHoleArray[3] = {20, 30, 40};    // Values need to be established
+float diameterArray[4] = {0,  1.75, 2.85, 3.00};
+int ldrValueArray[4] = {0, 102, 164, 198};   // Values need to be established
+int stepsPerHoleArray[4] = {0, 20, 30, 40};    // Values need to be established
 float density = 1;
 int spoolSpeed;
-int slideDirection(FORWARD);
+//---------------------------------------------------------------
+// Variables to toggle the direction of the slideMotor fw and bw
+
+int state = LOW;      // the current state of the output pin
+int reading;           // the current reading from the input pin
+int previous = LOW;    // the previous reading from the input pin
+long time = 0;         // the last time the output pin was toggled
+long debounce = 200;   // the debounce time, increase if the output flickers
+//--------------------------------------------------------------
+
 
   
 void setup() {
@@ -61,8 +69,7 @@ Serial.begin(9600);
 
   // Pin Modes
   pinMode(encSwitch, INPUT_PULLUP);  //Encoder Switch
-  pinMode(leftLimit, INPUT_PULLUP);  //Left Limit Switch
-  pinMode(rightLimit, INPUT_PULLUP);  //Right Limit Switch
+  pinMode(limitSwitch, INPUT_PULLUP);  // 2 Limit Switches  parallel on Input7
   pinMode(speedWheel, INPUT_PULLUP); //Optocoupler speedwheel
   pinMode(spool, INPUT_PULLUP); //Start spooling
 
@@ -127,26 +134,45 @@ Serial.begin(9600);
 
   diameterIndex = newPosition;
   float stepsPerHole = stepsPerHoleArray[diameterIndex];
+      
+        if (digitalRead(spool) == LOW) {
+    // pullSpeed = map(pullSpeed, 0, 1023, 0, 100);  // determines pullSpeed between 0 and 100 rpm's
 
-  if (digitalRead(spool) == LOW) {
- // pullSpeed = map(pullSpeed, 0, 1023, 0, 100);  // determines pullSpeed between 0 and 100 rpm's
 
-    int leftState = digitalRead (leftLimit);
-    int rightState = digitalRead (rightLimit);
+
+    //------------------------------------------------------------
+// Reading the switchstates for slidedirection
+
+    reading = digitalRead(limitSwitch);
+    
+    if (reading == HIGH && previous == LOW && millis() - time > debounce) {
+      if (state == HIGH)
+        state = LOW;
+      else
+        state = HIGH;
+
+      time = millis();
+    }
+
+    previous = reading;
+
+    Serial.print(state);
+    Serial.print("  ");
+    Serial.print(previous);
+    Serial.print("  ");
+    Serial.println(reading);
+  }
+  //-------------------------------------------------------------
 
     int holeDetect = digitalRead (speedWheel);
+      if (holeDetect == LOW && state == 0 ) {
+        slideMotor->step(stepsPerHole, FORWARD, SINGLE);
+      }
+          if (holeDetect == LOW && state == 1 ) {
+        slideMotor->step(stepsPerHole, BACKWARD, SINGLE);
+      }
 
-    if (rightState = LOW) {
-      slideDirection = BACKWARD;
-    }
-    if (leftState = LOW) {
-      slideDirection = FORWARD;
-    }
 
-    if (holeDetect = LOW) {
-      slideMotor->step(stepsPerHole, slideDirection, SINGLE);
-    }
-  }
 //3rd part: reading the diameter value and tune the pull-motor with this value, once the switch is switched from "manual" to "auto"
 // 
 // MODULE SPEED CONTROL:
